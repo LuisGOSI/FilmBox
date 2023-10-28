@@ -1,0 +1,143 @@
+<%- include("templates/encabezado") %>
+
+    <div class="container mt-5">
+        <form action="/nuevapelicula" method="post" enctype="multipart/form-data">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="card-title">Nueva película</h1>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="titulo">Título</label>
+                        <input class="form-control" type="text" name="titulo" id="titulo" placeholder="Título"
+                            autofocus>
+                    </div>
+                    <div class="form-group">
+                        <label for="director">Director</label>
+                        <input class="form-control" type="text" name="director" id="director" placeholder="Director">
+                    </div>
+                    <div class="form-group">
+                        <label for="anyo">Año</label>
+                        <input class="form-control" type="text" name="anyo" id="anyo" placeholder="Año">
+                    </div>
+                    <div class="form-group">
+                        <label for="sinopsis">Sinopsis</label>
+                        <textarea class="form-control" name="sinopsis" id="sinopsis" placeholder="Sinopsis"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="genero">Géneros:</label>
+                        <select class="form-control" name="genero[]" id="genero" multiple>
+                            <option value="accion">Acción</option>
+                            <option value="aventura">Aventura</option>
+                            <option value="ciencia-ficcion">Ciencia-ficción</option>
+                            <option value="comedia">Comedia</option>
+                            <option value="drama">Drama</option>
+                            <option value="fantasia">Fantasía</option>
+                            <option value="terror">Terror</option>
+                        </select>
+                    </div>
+                    <div class="selected-genres mt-3">
+                        <!-- Aquí se mostrarán los géneros seleccionados como módulos -->
+                    </div>
+                    <div class="form-group">
+                        <label for="plataforma">Plataforma/s</label>
+                        <select class="form-control" name="plataforma[]" id="plataforma" multiple>
+                            <option value="netflix">Netflix</option>
+                            <option value="amazon">Amazon Prime Video</option>
+                            <option value="disney">Disney+</option>
+                            <option value="hbo">HBO</option>
+                            <option value="movistar">Movistar+</option>
+                            <option value="apple">Apple TV+</option>
+                            <option value="claro">Claro Video</option>
+                            <option value="otra">Otra...</option>
+                        </select>
+                    </div>
+                    <div class="selected-platforms mt-3">
+                        <!-- Aquí se mostrarán las plataformas seleccionadas como módulos -->
+                    </div>
+                    <div class="form-group">
+                        <label for="trailer">Tráiler (URL)</label>
+                        <input class="form-control" type="url" name="trailer" id="trailer" placeholder="Tráiler">
+                    </div>
+                    <div class="form-group">
+                        <label for="foto">Foto</label>
+                        <input class="form-control" type="file" name="foto" id="foto">
+                    </div>
+                    <input class="form-control" type="hidden" name="rating" id="rating" value="3">
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary" type="submit">Subir película</button>
+                    <a href="/" class="btn btn-danger mt-3">Cancelar</a>
+                </div>
+            </div>
+        </form>
+
+
+
+        <script>
+            document.getElementById('genero').addEventListener('change', function () {
+                // Obtener la lista de géneros seleccionados
+                var selectedGenres = Array.from(this.selectedOptions).map(option => option.value);
+
+                // Limpiar la lista de géneros seleccionados
+                document.querySelector('.selected-genres').innerHTML = '';
+
+                // Agregar los géneros seleccionados como módulos
+                selectedGenres.forEach(genre => {
+                    var genreModule = document.createElement('span');
+                    genreModule.className = 'badge badge-primary genre-badge mr-2';
+                    genreModule.textContent = genre;
+
+                    // Agregar un botón para quitar el género seleccionado
+                    var removeButton = document.createElement('button');
+                    removeButton.className = 'btn btn-sm btn-danger remove-genre';
+                    removeButton.textContent = 'X';
+                    removeButton.addEventListener('click', function () {
+                        // Quitar el género de la lista de géneros seleccionados
+                        selectedGenres = selectedGenres.filter(selectedGenre => selectedGenre !== genre);
+                        // Actualizar la lista de géneros seleccionados
+                        document.querySelector('.selected-genres').removeChild(genreModule);
+                        // Desmarcar el género en el select
+                        var genreOption = document.querySelector('#genero option[value="' + genre + '"]');
+                        genreOption.selected = false;
+                    });
+
+                    genreModule.appendChild(removeButton);
+                    document.querySelector('.selected-genres').appendChild(genreModule);
+                });
+            });
+
+            document.getElementById('plataforma').addEventListener('change', function () {
+                // Obtener la lista de plataformas seleccionadas
+                var selectedPlatforms = Array.from(this.selectedOptions).map(option => option.value);
+
+                // Limpiar la lista de plataformas seleccionadas
+                document.querySelector('.selected-platforms').innerHTML = '';
+
+                // Agregar las plataformas seleccionadas como módulos
+                selectedPlatforms.forEach(platform => {
+                    var platformModule = document.createElement('span');
+                    platformModule.className = 'badge badge-primary platform-badge mr-2';
+                    platformModule.textContent = platform;
+
+                    // Agregar un botón para quitar la plataforma seleccionada
+                    var removeButton = document.createElement('button');
+                    removeButton.className = 'btn btn-sm btn-danger remove-platform';
+                    removeButton.textContent = 'X';
+                    removeButton.addEventListener('click', function () {
+                        // Quitar la plataforma de la lista de plataformas seleccionadas
+                        selectedPlatforms = selectedPlatforms.filter(selectedPlatform => selectedPlatform !== platform);
+                        // Actualizar la lista de plataformas seleccionadas
+                        document.querySelector('.selected-platforms').removeChild(platformModule);
+                        // Desmarcar la plataforma en el select
+                        var platformOption = document.querySelector('#plataforma option[value="' + platform + '"]');
+                        platformOption.selected = false;
+                    });
+
+                    platformModule.appendChild(removeButton);
+                    document.querySelector('.selected-platforms').appendChild(platformModule);
+                });
+            });
+        </script>
+
+        <%- include("templates/pie") %>
