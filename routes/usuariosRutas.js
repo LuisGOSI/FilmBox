@@ -71,4 +71,6 @@ ruta.get("/", async (req, res) => {
   var peliculas = await mostrarPeliculas();
   res.render("inicio", { peliculas });
 });
+
+
 module.exports = ruta;

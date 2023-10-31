@@ -7,15 +7,14 @@ async function mostrarPeliculas() {
     var peliculas = await conexion.get();
     peliculas.forEach((pelicula) => {
       var movie = new Pelicula(pelicula.id, pelicula.data());
-      if (movie.bandera == 0) {
-        movies.push(movie.obtenerDatos);
-      }
+      movies.push(movie.obtenerDatos);
     });
   } catch (err) {
-    console.log("Error al recuperar peliculas de la base de datos: ") + err;
+    console.log("Error al recuperar peliculas de la base de datos: " + err);
   }
   return movies;
 }
+
 
 async function nuevaPelicula(datos) {
     var movie = new Pelicula(null, datos);
