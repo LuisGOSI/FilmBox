@@ -1,16 +1,8 @@
 <%- include("templates/encabezado") %>
 <%- include("templates/menu") %>
 
-<h2 class="text-center">Carousel de todas las películas</h2>
+<h2 class="text-center">Todas las películas</h2>
 <div id="carouselTodasPeliculas" class="carousel slide" style="width: 50%; margin: auto;">
-  <div class="carousel-indicators">
-    <% let firstSlide = true; %>
-    <% peliculas.forEach((pelicula, index) => { %>
-      <button type="button" data-bs-target="carouselTodasPeliculas" data-bs-slide-to="<%= index %>"
-        <%= firstSlide ? 'class="active" aria-current="true"' : '' %> aria-label="Slide <%= index + 1 %>"></button>
-      <% firstSlide = false; %>
-    <% }) %>
-  </div>
   <div class="carousel-inner">
     <% firstSlide = true; %>
     <% peliculas.forEach((pelicula, index) => { %>
@@ -28,28 +20,20 @@
       <% firstSlide = false; %>
     <% }) %>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="carouselTodasPeliculas"
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselTodasPeliculas"
     data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Anterior</span>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="carouselTodasPeliculas"
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselTodasPeliculas"
     data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Siguiente</span>
   </button>
 </div>
 
-<h2 class="text-center">Carousel de películas de fantasía</h2>
+<h2 class="text-center">Películas de fantasía</h2>
 <div id="carouselFantasia" class="carousel slide" style="width: 50%; margin: auto;">
-  <div class="carousel-indicators">
-    <% let firstSlideFantasia = true; %>
-    <% peliculas.filter(pelicula => pelicula.genero.includes('fantasia')).forEach((pelicula, index) => { %>
-      <button type="button" data-bs-target="carouselFantasia" data-bs-slide-to="<%= index %>"
-        <%= firstSlideFantasia ? 'class="active" aria-current="true"' : '' %> aria-label="Slide <%= index + 1 %>"></button>
-      <% firstSlideFantasia = false; %>
-    <% }) %>
-  </div>
   <div class="carousel-inner">
     <% firstSlideFantasia = true; %>
     <% peliculas.filter(pelicula => pelicula.genero.includes('fantasia')).forEach((pelicula, index) => { %>
@@ -67,28 +51,20 @@
       <% firstSlideFantasia = false; %>
     <% }) %>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="carouselFantasia"
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselFantasia"
     data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Anterior</span>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="carouselFantasia"
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselFantasia"
     data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Siguiente</span>
   </button>
 </div>
 
-<h2 class="text-center">Carousel de películas de accion</h2>
+<h2 class="text-center">Películas de accion</h2>
 <div id="carouselAccion" class="carousel slide" style="width: 50%; margin: auto;">
-  <div class="carousel-indicators">
-    <% let firstSlideAccion = true; %>
-    <% peliculas.filter(pelicula => pelicula.genero.includes('accion')).forEach((pelicula, index) => { %>
-      <button type="button" data-bs-target="carouselAccion" data-bs-slide-to="<%= index %>"
-        <%= firstSlideFantasia ? 'class="active" aria-current="true"' : '' %> aria-label="Slide <%= index + 1 %>"></button>
-      <% firstSlideAccion = false; %>
-    <% }) %>
-  </div>
   <div class="carousel-inner">
     <% firstSlideAccion = true; %>
     <% peliculas.filter(pelicula => pelicula.genero.includes('accion')).forEach((pelicula, index) => { %>
@@ -106,12 +82,12 @@
       <% firstSlideAccion = false; %>
     <% }) %>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="carouselAccion"
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselAccion"
     data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Anterior</span>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="carouselAccion"
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselAccion"
     data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Siguiente</span>
