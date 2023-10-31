@@ -1,7 +1,8 @@
 <%- include("templates/encabezado") %>
   <%- include("templates/menu") %>
 
-    <div id="carouselExampleCaptions" class="carousel slide">
+    <h2 class="text-center">Carousel de todas las películas</h2>
+    <div id="carouselExampleCaptions" class="carousel slide" style="width: 66%; margin: auto;">
       <div class="carousel-indicators">
         <% let firstSlide=true; %>
           <% peliculas.forEach((pelicula, index)=> { %>
@@ -30,12 +31,51 @@
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
         data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
+        <span class="visually-hidden">Anterior</span>
       </button>
       <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
         data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    </div>
+
+    <h2 class="text-center">Carousel de películas de fantasía</h2>
+    <div id="carouselFantasia" class="carousel slide" style="width: 66%; margin: auto;">
+      <div class="carousel-indicators">
+        <% let firstSlideFantasia=true; %>
+          <% peliculas.filter(pelicula => pelicula.genero === 'fantasia').forEach((pelicula, index)=> { %>
+            <button type="button" data-bs-target="#carouselFantasia" data-bs-slide-to="<%= index %>"
+              <%=firstSlideFantasia ? 'class="active" aria-current="true"' : '' %> aria-label="Slide <%= index + 1 %>"></button>
+            <% firstSlideFantasia=false; %>
+              <% }) %>
+      </div>
+      <div class="carousel-inner">
+        <% firstSlideFantasia=true; %>
+          <% peliculas.filter(pelicula => pelicula.genero === 'fantasia').forEach((pelicula, index)=> { %>
+            <div class="carousel-item <%= firstSlideFantasia ? 'active' : '' %>">
+              <img height="400px" src="/images/<%= pelicula.foto %>" class="d-block w-100" alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h5>
+                  <%= pelicula.titulo %>
+                </h5>
+                <p>
+                  <%= pelicula.sinopsis %>
+                </p>
+              </div>
+            </div>
+            <% firstSlideFantasia=false; %>
+              <% }) %>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselFantasia"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselFantasia"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
       </button>
     </div>
 
