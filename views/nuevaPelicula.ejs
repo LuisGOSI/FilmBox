@@ -9,24 +9,23 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="titulo">Título</label>
-                        <input class="form-control" type="text" name="titulo" id="titulo" placeholder="Título"
-                            autofocus>
+                        <input class="form-control" type="text" name="titulo" id="titulo" placeholder="Título" required autofocus>
                     </div>
                     <div class="form-group">
                         <label for="director">Director</label>
-                        <input class="form-control" type="text" name="director" id="director" placeholder="Director">
+                        <input class="form-control" type="text" name="director" id="director" placeholder="Director" required>
                     </div>
                     <div class="form-group">
                         <label for="anyo">Año</label>
-                        <input class="form-control" type="text" name="anyo" id="anyo" placeholder="Año">
+                        <input class="form-control" type="text" name="anyo" id="anyo" placeholder="Año" required>
                     </div>
                     <div class="form-group">
                         <label for="sinopsis">Sinopsis</label>
-                        <textarea class="form-control" name="sinopsis" id="sinopsis" placeholder="Sinopsis"></textarea>
+                        <textarea class="form-control" name="sinopsis" id="sinopsis" placeholder="Sinopsis" required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="genero">Géneros:</label>
-                        <select class="form-control" name="genero[]" id="genero" multiple>
+                        <select class="form-control" name="genero[]" id="genero" required multiple>
                             <option value="accion">Acción</option>
                             <option value="aventura">Aventura</option>
                             <option value="ciencia-ficcion">Ciencia-ficción</option>
@@ -41,7 +40,7 @@
                     </div>
                     <div class="form-group">
                         <label for="plataforma">Plataforma/s</label>
-                        <select class="form-control" name="plataforma[]" id="plataforma" multiple>
+                        <select class="form-control" name="plataforma[]" id="plataforma" required multiple>
                             <option value="netflix">Netflix</option>
                             <option value="amazon">Amazon Prime Video</option>
                             <option value="disney">Disney+</option>
@@ -57,11 +56,11 @@
                     </div>
                     <div class="form-group">
                         <label for="trailer">Tráiler (URL)</label>
-                        <input class="form-control" type="url" name="trailer" id="trailer" placeholder="Tráiler">
+                        <input class="form-control" type="url" name="trailer" id="trailer" placeholder="Tráiler" required>
                     </div>
                     <div class="form-group">
                         <label for="foto">Foto</label>
-                        <input class="form-control" type="file" name="foto" id="foto">
+                        <input class="form-control" type="file" name="foto" id="foto" required>
                     </div>
                     <input class="form-control" type="hidden" name="rating" id="rating" value="3">
                 </div>
