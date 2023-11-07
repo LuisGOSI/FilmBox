@@ -2,12 +2,14 @@
 <%- include("templates/menu") %>
 
 <h2 class="text-center">Todas las películas</h2>
-<div id="carouselTodasPeliculas" class="carousel slide" style="width: 50%; margin: auto;">
+<div id="carouselTodasPeliculas" class="carousel slide" style="width: 30%; margin: auto;">
   <div class="carousel-inner">
     <% firstSlide = true; %>
     <% peliculas.forEach((pelicula, index) => { %>
       <div class="carousel-item <%= firstSlide ? 'active' : '' %>">
-        <img height="400px" src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>" class="d-block w-100" alt="...">
+        <a href="/pelicula/<%= pelicula.id %>">
+          <img height="400px" src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>" class="d-block w-100" alt="...">
+        </a>
         <div class="carousel-caption d-none d-md-block">
           <h5>
             <%= pelicula.titulo %>
@@ -33,12 +35,14 @@
 </div>
 
 <h2 class="text-center">Películas de fantasía</h2>
-<div id="carouselFantasia" class="carousel slide" style="width: 50%; margin: auto;">
+<div id="carouselFantasia" class="carousel slide" style="width: 30%; margin: auto;">
   <div class="carousel-inner">
     <% firstSlideFantasia = true; %>
     <% peliculas.filter(pelicula => pelicula.genero.includes('fantasia')).forEach((pelicula, index) => { %>
       <div class="carousel-item <%= firstSlideFantasia ? 'active' : '' %>">
-        <img height="400px" src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>" class="d-block w-100" alt="...">
+        <a href="/pelicula/<%= pelicula.id %>">
+          <img height="400px" src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>" class="d-block w-100" alt="...">
+        </a>
         <div class="carousel-caption d-none d-md-block">
           <h5>
             <%= pelicula.titulo %>
@@ -64,12 +68,14 @@
 </div>
 
 <h2 class="text-center">Películas de accion</h2>
-<div id="carouselAccion" class="carousel slide" style="width: 50%; margin: auto;">
+<div id="carouselAccion" class="carousel slide" style="width: 30%; margin: auto;">
   <div class="carousel-inner">
     <% firstSlideAccion = true; %>
     <% peliculas.filter(pelicula => pelicula.genero.includes('accion')).forEach((pelicula, index) => { %>
       <div class="carousel-item <%= firstSlideAccion ? 'active' : '' %>">
-        <img height="400px" src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>" class="d-block w-100" alt="...">
+        <a href="/pelicula/<%= pelicula.id %>">
+          <img height="400px" src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>" class="d-block w-100" alt="...">
+        </a>
         <div class="carousel-caption d-none d-md-block">
           <h5>
             <%= pelicula.titulo %>

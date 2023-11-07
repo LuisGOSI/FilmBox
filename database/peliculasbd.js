@@ -15,6 +15,18 @@ async function mostrarPeliculas() {
   return movies;
 }
 
+async function buscarPelicula(id) {
+  try {
+    var pelicula = await conexion.doc(id).get();
+    if (pelicula.exists) {
+      return new Pelicula(pelicula.id, pelicula.data());
+    } else {
+      console.log("No se encontró la película");
+    }
+  } catch (err) {
+    console.log("Error al buscar la película: " + err);
+  }
+}
 
 async function nuevaPelicula(datos) {
     var movie = new Pelicula(null, datos);
@@ -33,5 +45,6 @@ async function nuevaPelicula(datos) {
 
 module.exports = {
     mostrarPeliculas,
+    buscarPelicula,
     nuevaPelicula,
 }

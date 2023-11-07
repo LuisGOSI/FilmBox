@@ -1,7 +1,7 @@
 var ruta = require("express").Router();
 var fs = require("fs");
 var { nuevoUsuario, buscarPorUsuario } = require("../database/usuariosbd");
-var { mostrarPeliculas, nuevaPelicula } = require("../database/peliculasbd");
+var { mostrarPeliculas, nuevaPelicula, buscarPelicula} = require("../database/peliculasbd");
 var subirArchivo = require("../middlewares/subirArchivo");
 var {autorizado,validarPassword} = require("../middlewares/funcionesSecurity");
 
@@ -72,5 +72,25 @@ ruta.get("/", async (req, res) => {
   res.render("inicio", { peliculas });
 });
 
+// Pagina de peliculas-----------------------------------------------------------------------------------------------------------
+
+ruta.get("/pelicula/:id", async (req, res) => {
+  try {
+    var pelicula = await buscarPelicula(req.params.id);
+    if (pelicula) {
+      res.render("pelicula", { pelicula });
+    } else {
+      var error = "Pelicula no encontrada";
+      console.log(error);
+      res.send(`<script>alert("${error}"); window.location.href="/";</script>`);
+    }
+  } catch (err) {
+    var error = "Error al buscar la película";
+    console.log(error);
+    res.send(`<script>alert("${error}"); window.location.href="/";</script>`);
+  }
+});
+
 
 module.exports = ruta;
+
