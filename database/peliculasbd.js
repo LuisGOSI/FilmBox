@@ -33,7 +33,7 @@ async function nuevaPelicula(datos) {
     var error = 1;
     if (movie.bandera == 0) {
       try {
-        await conexion.doc().set(movie.obtenerDatos);
+        await conexion.doc(movie.titulo).set(movie.obtenerDatos);
         console.log("Pelicula insertada a la base de datos");
         error = 0;
       } catch (err) {

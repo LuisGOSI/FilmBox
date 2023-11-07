@@ -3,18 +3,24 @@
 
 <div class="container mt-5">
   <div class="card">
-    <div class="card-header">
-      <h1 class="card-title"><%= pelicula.titulo %></h1>
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">Director: <%= pelicula.director %></h5>
-      <p class="card-text">Año: <%= pelicula.anyo %></p>
-      <p class="card-text">Género: <%= pelicula.genero.join(', ') %></p>
-      <p class="card-text">Rating: <%= pelicula.rating %></p>
-      <p class="card-text">Sinopsis: <%= pelicula.sinopsis %></p>
-      <img src="<%= pelicula.foto %>" class="card-img-top" alt="<%= pelicula.titulo %>">
-      <a href="<%= pelicula.trailer %>" class="btn btn-primary" target="_blank">Ver Trailer</a>
-      <p class="card-text">Plataforma: <%= pelicula.plataforma.join(', ') %></p>
+    <div class="row">
+      <div class="col-md-6">
+        <img src="/images/<%= pelicula.foto %>" class="card-img-top" alt="<%= pelicula.titulo %>">
+      </div>
+      <div class="col-md-6">
+        <div class="card-header">
+          <h1 class="card-title"><%= pelicula.titulo %></h1>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Director: <%= pelicula.director %></h5>
+          <p class="card-text">Año: <%= pelicula.anyo %></p>
+          <p class="card-text">Género: <%= pelicula.genero.join(', ') %></p>
+          <p class="card-text">Rating: <%= pelicula.rating %></p>
+          <p class="card-text">Sinopsis: <%= pelicula.sinopsis %></p>
+          <p class="card-text">Plataforma: <%= pelicula.plataforma.join(', ') %></p>
+          <a href="<%= pelicula.trailer %>" class="btn btn-primary" target="_blank">Ver Trailer</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>

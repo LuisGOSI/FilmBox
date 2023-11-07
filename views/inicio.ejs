@@ -11,12 +11,9 @@
           <img height="400px" src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>" class="d-block w-100" alt="...">
         </a>
         <div class="carousel-caption d-none d-md-block">
-          <h5>
+          <h3>
             <%= pelicula.titulo %>
-          </h5>
-          <p>
-            <%= pelicula.sinopsis %>
-          </p>
+          </h3>
         </div>
       </div>
       <% firstSlide = false; %>
@@ -34,6 +31,8 @@
   </button>
 </div>
 
+<div class="separation"></div>
+
 <h2 class="text-center">Películas de fantasía</h2>
 <div id="carouselFantasia" class="carousel slide" style="width: 30%; margin: auto;">
   <div class="carousel-inner">
@@ -44,12 +43,9 @@
           <img height="400px" src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>" class="d-block w-100" alt="...">
         </a>
         <div class="carousel-caption d-none d-md-block">
-          <h5>
+          <h3>
             <%= pelicula.titulo %>
-          </h5>
-          <p>
-            <%= pelicula.sinopsis %>
-          </p>
+          </h3>
         </div>
       </div>
       <% firstSlideFantasia = false; %>
@@ -67,6 +63,8 @@
   </button>
 </div>
 
+<div class="separation"></div>
+
 <h2 class="text-center">Películas de accion</h2>
 <div id="carouselAccion" class="carousel slide" style="width: 30%; margin: auto;">
   <div class="carousel-inner">
@@ -80,9 +78,6 @@
           <h5>
             <%= pelicula.titulo %>
           </h5>
-          <p>
-            <%= pelicula.sinopsis %>
-          </p>
         </div>
       </div>
       <% firstSlideAccion = false; %>
@@ -99,5 +94,11 @@
     <span class="visually-hidden">Siguiente</span>
   </button>
 </div>
+
+<style>
+  .separation{
+    height: 100px;
+  }
+</style>
 
 <%- include("templates/pie") %>
