@@ -18,21 +18,21 @@
             Generos
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Accion</a></li>
-            <li><a class="dropdown-item" href="#">Aventura</a></li>
-            <li><a class="dropdown-item" href="#">Ciencia-ficcion</a></li>
-            <li><a class="dropdown-item" href="#">Comedia</a></li>
-            <li><a class="dropdown-item" href="#">Drama</a></li>
-            <li><a class="dropdown-item" href="#">Fantasia</a></li>
-            <li><a class="dropdown-item" href="#">Terror</a></li>
+            <li><a class="dropdown-item" href="/genero/accion">Accion</a></li>
+            <li><a class="dropdown-item" href="/genero/ciencia-ficcion">Ciencia-ficcion</a></li>
+            <li><a class="dropdown-item" href="/genero/comedia">Comedia</a></li>
+            <li><a class="dropdown-item" href="/genero/aventura">Aventura</a></li>
+            <li><a class="dropdown-item" href="/genero/drama">Drama</a></li>
+            <li><a class="dropdown-item" href="/genero/fantasia">Fantasia</a></li>
+            <li><a class="dropdown-item" href="/genero/terror">Terror</a></li>
           </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link" aria-current="true" href="/nuevapelicula">Agregar pelicula</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <form class="d-flex" role="search" action="/buscarPeli" method="POST">
+        <input class="form-control me-2" name="search" type="search" placeholder="Buscar pelicula" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar</button>
       </form>
       <a class="btn btn-outline-danger" href="/logout">Cerrar sesión</a>

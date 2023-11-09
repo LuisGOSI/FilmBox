@@ -28,6 +28,32 @@ async function buscarPelicula(id) {
   }
 }
 
+async function buscarPeliculaGenero(genero) {
+  try {
+    const consultaTodas = await conexion.get();
+    if (consultaTodas.empty) {
+      console.log("No se encontraron películas en la base de datos.");
+      return [];
+    }
+    const movies = [];
+    consultaTodas.forEach((pelicula) => {
+      const movie = new Pelicula(pelicula.id, pelicula.data());
+      if (movie.genero.includes(genero)) {
+        movies.push(movie.obtenerDatos);
+      }
+    });
+    // console.log(movies);
+    return movies;
+  } catch (err) {
+    console.error("Error al buscar películas por género: " + err);
+  }
+}
+
+
+
+
+
+
 async function nuevaPelicula(datos) {
     var movie = new Pelicula(null, datos);
     var error = 1;
@@ -47,4 +73,5 @@ module.exports = {
     mostrarPeliculas,
     buscarPelicula,
     nuevaPelicula,
+    buscarPeliculaGenero,
 }

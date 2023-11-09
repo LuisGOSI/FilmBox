@@ -1,6 +1,9 @@
-body{
-  background-color: rgb(116, 116, 116) !important; 
+body {
+  background-color: rgb(116, 116, 116) !important;
   margin: 0;
   padding: 0;
 }
 
+.separation {
+  height: 100px;
+}

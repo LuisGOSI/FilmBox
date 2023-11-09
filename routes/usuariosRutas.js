@@ -1,7 +1,7 @@
 var ruta = require("express").Router();
 var fs = require("fs");
 var { nuevoUsuario, buscarPorUsuario } = require("../database/usuariosbd");
-var { mostrarPeliculas, nuevaPelicula, buscarPelicula} = require("../database/peliculasbd");
+var { mostrarPeliculas, nuevaPelicula, buscarPelicula, buscarPeliculaGenero} = require("../database/peliculasbd");
 var subirArchivo = require("../middlewares/subirArchivo");
 var {autorizado,validarPassword} = require("../middlewares/funcionesSecurity");
 
@@ -90,6 +90,47 @@ ruta.get("/pelicula/:id", async (req, res) => {
     res.send(`<script>alert("${error}"); window.location.href="/";</script>`);
   }
 });
+
+// Pagina de generos-------------------------------------------------------------------------------------------------------------
+ruta.get("/genero/:genero", async (req, res) => {
+  try {
+    var genero = req.params.genero; 
+    const peliculas = await buscarPeliculaGenero(genero);
+    if (peliculas.length > 0) {
+      res.render("genero", {peliculas , genero});
+    } else {
+      var error = "No se encontraron películas para el género especificado.";
+      console.log(error);
+      res.send(`<script>alert("${error}"); window.location.href="/";</script>`);
+    }
+  } catch (err) {
+    var error = "Error al buscar películas por género";
+    console.log(error);
+    res.send(`<script>alert("${error}"); window.location.href="/";</script>`);
+  }
+});
+
+// Buscador ---------------------------------------------------------------------------------------------------------------------
+ruta.post("/buscarPeli", async (req, res) => {
+  try {
+    const terminoBusqueda = req.body.search; 
+    console.log(terminoBusqueda);
+    const pelicula = await buscarPelicula(terminoBusqueda);
+
+    if (pelicula) {
+      res.redirect(`/pelicula/${pelicula.id}`);
+    } else {
+      var error = "No se encontró la película";
+      console.log(error);
+      res.send(`<script>alert("${error}"); window.location.href="/";</script>`);
+    }
+  } catch (err) {
+    var error = "Error al buscar la película";
+    console.log(error);
+    res.send(`<script>alert("${error}"); window.location.href="/";</script>`);
+  }
+});
+
 
 
 module.exports = ruta;
