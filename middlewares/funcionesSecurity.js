@@ -17,21 +17,16 @@ function autorizado(req, res, cb) {
     else res.redirect("/loginUser");
 }
 
-function admin(req, res, cb) {
+function adminAutorizado(req, res, cb) {
     if (req.session.admin) cb();
-    else{
-        if (req.session.usuario) {
-            res.redirect("/usuarios")
-        }
-        else{
-            res.redirect("/");
-        }
-    } 
+    else res.redirect("/loginUser");
 }
+
+
 
 module.exports={
     encriptarPassword,
     validarPassword,
     autorizado,
-    admin
+    adminAutorizado,
 }

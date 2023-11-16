@@ -4,8 +4,10 @@ var { nuevoUsuario, buscarPorUsuario } = require("../database/usuariosbd");
 var { mostrarPeliculas, nuevaPelicula, buscarPelicula, buscarPeliculaGenero} = require("../database/peliculasbd");
 var subirArchivo = require("../middlewares/subirArchivo");
 var {autorizado,validarPassword} = require("../middlewares/funcionesSecurity");
+const { mostrarReseñas, mostrarReseñasPorId, nuevaReseña } = require("../database/reseñasbd");
 
 // Login-------------------------------------------------------------------------------------------------------------------------
+
 ruta.get("/loginUser", (req, res) => {
   res.render("login");
 });
@@ -22,7 +24,8 @@ ruta.post("/login", async (req, res) => {
     if (passwordCorrecto) {
       if (usuarioEncontrado.admin) {
         req.session.admin = usuarioEncontrado.admin;
-        res.redirect("/");
+        req.session.usuario = usuarioEncontrado.usuario;
+        res.redirect("/adminInicio");
       } else {
         req.session.usuario = usuarioEncontrado.usuario;
         res.redirect("/");
@@ -34,6 +37,8 @@ ruta.post("/login", async (req, res) => {
     }
   } else {
     console.log("Usuario o contraseña incorrectos");
+    var error = "Nombre de usuario o contraseña incorrecta";
+    res.send(`<script>alert("${error}"); window.location.href="/loginUser";</script>`);
     res.render("login");
   }
 });
@@ -43,30 +48,8 @@ ruta.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-// Nuevo usuario-----------------------------------------------------------------------------------------------------------------
-ruta.get("/nuevousuario", (req, res) => {
-  res.render("nuevoUsuario");
-});
-
-ruta.post("/nuevousuario", subirArchivo(), async (req, res) => {
-  req.body.foto = req.file.originalname;
-  var error = await nuevoUsuario(req.body);
-  res.redirect("/");
-});
-
-// Nueva pelicula----------------------------------------------------------------------------------------------------------------
-ruta.post("/nuevapelicula", subirArchivo(), async (req, res) => {
-  req.body.foto = req.file.originalname;
-  console.log(req.body);
-  var error = await nuevaPelicula(req.body);
-  res.redirect("/");
-});
-
-ruta.get("/nuevapelicula", autorizado, async(req,res)=>{
-  res.render("nuevaPelicula");
-});
-
 // Pagina de inicio--------------------------------------------------------------------------------------------------------------
+
 ruta.get("/", async (req, res) => {
   var peliculas = await mostrarPeliculas();
   res.render("inicio", { peliculas });
@@ -76,9 +59,11 @@ ruta.get("/", async (req, res) => {
 
 ruta.get("/pelicula/:id", async (req, res) => {
   try {
+    var sesion = req.session;
     var pelicula = await buscarPelicula(req.params.id);
+    var reseñas = await mostrarReseñasPorId(req.params.id);
     if (pelicula) {
-      res.render("pelicula", { pelicula });
+      res.render("pelicula", { pelicula, reseñas , sesion});
     } else {
       var error = "Pelicula no encontrada";
       console.log(error);
@@ -91,11 +76,13 @@ ruta.get("/pelicula/:id", async (req, res) => {
   }
 });
 
+
 // Pagina de generos-------------------------------------------------------------------------------------------------------------
+
 ruta.get("/genero/:genero", async (req, res) => {
   try {
     var genero = req.params.genero; 
-    const peliculas = await buscarPeliculaGenero(genero);
+    var peliculas = await buscarPeliculaGenero(genero);
     if (peliculas.length > 0) {
       res.render("genero", {peliculas , genero});
     } else {
@@ -110,12 +97,50 @@ ruta.get("/genero/:genero", async (req, res) => {
   }
 });
 
+
+// Nuevo usuario-----------------------------------------------------------------------------------------------------------------
+
+ruta.get("/nuevousuario", (req, res) => {
+  res.render("nuevoUsuario");
+});
+
+ruta.post("/nuevousuario", subirArchivo(), async (req, res) => {
+  req.body.foto = req.file.originalname;
+  var error = await nuevoUsuario(req.body);
+  res.redirect("/");
+});
+
+// Nueva pelicula----------------------------------------------------------------------------------------------------------------
+
+ruta.post("/nuevapelicula", subirArchivo(), async (req, res) => {
+  req.body.foto = req.file.originalname;
+  var error = await nuevaPelicula(req.body);
+  res.redirect("/");
+});
+
+ruta.get("/nuevapelicula", autorizado, async(req,res)=>{
+  res.render("nuevaPelicula");
+});
+
+// Nueva reseña -----------------------------------------------------------------------------------------------------------------
+
+ruta.post("/agregarResenya", autorizado, async (req, res) => {
+  try {
+    var error = await nuevaReseña(req.body);
+    res.redirect(req.get('referer'));
+  } catch (err) {
+    var error = "Error al agregar la reseña";
+    console.log(error);
+    res.send(`<script>alert("${error}"); window.location.href="/";</script>`);
+  }
+});
+
 // Buscador ---------------------------------------------------------------------------------------------------------------------
+
 ruta.post("/buscarPeli", async (req, res) => {
   try {
-    const terminoBusqueda = req.body.search; 
-    console.log(terminoBusqueda);
-    const pelicula = await buscarPelicula(terminoBusqueda);
+    var terminoBusqueda = req.body.search; 
+    var pelicula = await buscarPelicula(terminoBusqueda);
 
     if (pelicula) {
       res.redirect(`/pelicula/${pelicula.id}`);

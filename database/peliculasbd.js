@@ -49,11 +49,6 @@ async function buscarPeliculaGenero(genero) {
   }
 }
 
-
-
-
-
-
 async function nuevaPelicula(datos) {
     var movie = new Pelicula(null, datos);
     var error = 1;

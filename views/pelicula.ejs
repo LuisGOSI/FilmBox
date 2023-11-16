@@ -19,6 +19,49 @@
           <p class="card-text">Sinopsis: <%= pelicula.sinopsis %></p>
           <p class="card-text">Plataforma/s: <%= pelicula.plataforma.join(', ') %></p>
           <a href="<%= pelicula.trailer %>" class="btn btn-primary" target="_blank">Ver Trailer</a>
+
+          <br><br>
+          <!-- Sección de reseñas -->
+          <div class="reseñas">
+            <h3>Reseñas</h3>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+              <% if (reseñas.length == 0) { %>
+                <p>No hay reseñas en este momento</p>
+              <% } else { %>
+                <% reseñas.forEach((res) => { %>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse<%= res.id %>" aria-expanded="false" aria-controls="flush-collapse<%= res.id %>">
+                        Reseña hecha por "<%= res.usuario %>"
+                      </button>
+                    </h2>
+                    <div id="flush-collapse<%= res.id %>" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body"><%= res.resenya %></div>
+                    </div>
+                  </div>
+                <% }) %>
+              <% } %>
+            </div>
+          </div>
+
+          <br>
+          
+          <!-- Formulario para agregar nuevas reseñas -->
+          <div class="agregar-reseña">
+            <h3>Agregar Reseña</h3>
+            <form action="/agregarResenya" method="POST">
+              <input type="hidden" name="pelicula" value="<%= pelicula.titulo %>">
+              <div class="form-group">
+                <label for="resenya">Reseña:</label>
+                <textarea class="form-control" id="resenya" name="resenya" rows="3"></textarea>
+              </div>
+              <div class="form-group">
+                <input type="hidden" name="usuario" value="<%= sesion.usuario %>">
+              </div>
+              <button type="submit" class="btn btn-primary">Agregar</button>
+            </form>
+          </div>
+
         </div>
       </div>
     </div>
