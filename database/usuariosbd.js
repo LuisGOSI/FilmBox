@@ -56,14 +56,13 @@ async function modificarUsuario(datos) {
   var error = 1;
   var respuestaBuscar = await buscarPorID(datos.id);
   if (respuestaBuscar != "") {
-    if(datos.password == ""){
-      datos.password=datos.passwordViejo;
-      datos.salt=datos.saltViejo;
-    }
-    else{
-      var {salt, hash}=encriptarPassword(datos.password);
-      datos.password=hash;
-      datos.salt=salt;
+    if (datos.password == "") {
+      datos.password = datos.passwordViejo;
+      datos.salt = datos.saltViejo;
+    } else {
+      var { salt, hash } = encriptarPassword(datos.password);
+      datos.password = hash;
+      datos.salt = salt;
     }
     var user = new Usuario(datos.id, datos);
     if (user.bandera == 0) {
@@ -78,6 +77,8 @@ async function modificarUsuario(datos) {
   }
   return error;
 }
+
+
 
 async function borrarUsuario(id) {
   var error = 1;

@@ -29,12 +29,19 @@ rutaAd.post("/editar", subirArchivo(), async (req, res) => {
         } else {
             req.body.foto = req.body.fotoVieja;
         }
+        
+        // Convertir el valor del campo "admin" a booleano
+        req.body.admin = req.body.admin === "true";
+        
         await modificarUsuario(req.body);
-        res.redirect("/adminInicio");
+        res.redirect("/loginUser");
     } catch (error) {
         console.error("Error al editar usuario:", error);
     }
 });
+
+
+
 
 rutaAd.get("/borrar/:id", async (req, res) => {
     var usuario = await buscarPorID(req.params.id)

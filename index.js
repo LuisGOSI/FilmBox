@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(session({
   name:'session',
   keys:['askfhvakjrhsfiuvabñoweucbÑSID'],
-  maxAge: 24 * 60 * 60 * 1000
+  maxAge: 24 * 60 * 60 * 1000,
 }));
 app.use("/", express.static(path.join(__dirname, "/web")));
 app.use("/", rutas);

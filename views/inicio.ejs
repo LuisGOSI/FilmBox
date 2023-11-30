@@ -5,7 +5,7 @@
 <div id="carouselTodasPeliculas" class="carousel slide" style="width: 90%; margin: auto;">
   <div class="carousel-inner">
     <% var count = 0; %>
-    <% peliculas.forEach((pelicula, index) => { %>
+    <% peliculas.sort(() => Math.random() - 0.5).forEach((pelicula, index) => { %>
       <% if (count % 3 == 0) { %>
         <div class="carousel-item <%= count == 0 ? 'active' : '' %>"> 
           <div class="row">
@@ -44,7 +44,7 @@
 <div id="carouselFantasia" class="carousel slide" style="width: 90%; margin: auto;">
   <div class="carousel-inner">
     <% var countFantasia = 0; %>
-    <% peliculas.filter(pelicula => pelicula.genero.includes('fantasia')).forEach((pelicula, index) => { %>
+    <% peliculas.filter(pelicula => pelicula.genero.includes('fantasia')).sort(() => Math.random() - 0.5).forEach((pelicula, index) => { %>
       <% if (countFantasia % 3 == 0) { %>
         <div class="carousel-item <%= countFantasia == 0 ? 'active' : '' %>">
           <div class="row">
@@ -79,11 +79,11 @@
 
 <div class="separation"></div>
 
-<h2 class="text-center">Películas de accion</h2>
+<h2 class="text-center">Películas de acción</h2>
 <div id="carouselAccion" class="carousel slide" style="width: 90%; margin: auto;">
   <div class="carousel-inner">
     <% var countAccion = 0; %>
-    <% peliculas.filter(pelicula => pelicula.genero.includes('accion')).forEach((pelicula, index) => { %>
+    <% peliculas.filter(pelicula => pelicula.genero.includes('accion')).sort(() => Math.random() - 0.5).forEach((pelicula, index) => { %>
       <% if (countAccion % 3 == 0) { %>
         <div class="carousel-item <%= countAccion == 0 ? 'active' : '' %>">
           <div class="row">

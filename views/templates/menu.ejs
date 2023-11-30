@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">
-      <img src="/resources/FILM BOX.png" width="80px" height="80px" alt="filmBoxLogo" class="d-inline-block align-text-top">
+      <img src="/resources/FILM BOX.png" width="80px" height="80px" alt="filmBoxLogo"
+        class="d-inline-block align-text-top">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,32 +10,52 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <% if (locals.user && locals.user.admin) { %>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/adminInicio">Inicio de administrador</a>
+          </li>
+        <% } %>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Inicio</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Generos
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Géneros
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/genero/accion">Accion</a></li>
-            <li><a class="dropdown-item" href="/genero/ciencia-ficcion">Ciencia-ficcion</a></li>
+            <li><a class="dropdown-item" href="/genero/accion">Acción</a></li>
+            <li><a class="dropdown-item" href="/genero/ciencia-ficcion">Ciencia-ficción</a></li>
             <li><a class="dropdown-item" href="/genero/comedia">Comedia</a></li>
             <li><a class="dropdown-item" href="/genero/aventura">Aventura</a></li>
             <li><a class="dropdown-item" href="/genero/drama">Drama</a></li>
-            <li><a class="dropdown-item" href="/genero/fantasia">Fantasia</a></li>
+            <li><a class="dropdown-item" href="/genero/fantasia">Fantasía</a></li>
             <li><a class="dropdown-item" href="/genero/terror">Terror</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="true" href="/nuevapelicula">Agregar pelicula</a>
+          <a class="nav-link" aria-current="true" href="/nuevapelicula">Agregar película</a>
         </li>
       </ul>
       <form class="d-flex" role="search" action="/buscarPeli" method="POST">
-        <input class="form-control me-2" name="search" type="search" placeholder="Buscar pelicula" aria-label="Search">
+        <input class="form-control me-2" name="search" type="search" placeholder="Buscar película"
+          aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar</button>
       </form>
-      <a class="btn btn-outline-danger" href="/logout">Cerrar sesión</a>
+      <% if (!locals.user || !locals.user.usuario) { %>
+        <!-- Mostrar el botón solo si el usuario no ha iniciado sesión -->
+        <a class="btn btn-outline-primary" href="/loginUser">Iniciar sesión</a>
+      <% } else { %>
+        <!-- Mostrar la foto y el nombre del usuario si ha iniciado sesión -->
+        <div class="navbar-text">
+          <img src="/images/<%= user.foto %>" alt="Imagen del Perfil" class="rounded-circle" width="40px"
+            height="40px">
+          <span class="ms-2">
+            <a aria-current="true" href="/editar/<%= user.id %>"><%= user.usuario %></a>
+          </span>
+        </div>
+        <a class="btn btn-outline-danger ms-2" href="/logout">Cerrar sesión</a>
+      <% } %>
     </div>
   </div>
 </nav>

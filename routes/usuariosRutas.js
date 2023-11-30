@@ -4,7 +4,38 @@ var { nuevoUsuario, buscarPorUsuario } = require("../database/usuariosbd");
 var { mostrarPeliculas, nuevaPelicula, buscarPelicula, buscarPeliculaGenero} = require("../database/peliculasbd");
 var subirArchivo = require("../middlewares/subirArchivo");
 var {autorizado,validarPassword} = require("../middlewares/funcionesSecurity");
-const { mostrarReseñas, mostrarReseñasPorId, nuevaReseña } = require("../database/reseñasbd");
+const { mostrarReseñasPorId, nuevaReseña } = require("../database/reseñasbd");
+
+// Verificar sesion del usuario---------------------------------------------------------------------------------------------------
+const obtenerUsuarioMiddleware = (req, res, next) => {
+  if (req.session.usuario) {
+    buscarPorUsuario(req.session.usuario)
+      .then((usuarioIniciado) => {
+        if (usuarioIniciado) {
+          res.locals.user = {
+            id: usuarioIniciado.id,
+            usuario: usuarioIniciado.usuario,
+            admin: usuarioIniciado.admin || false,
+            foto: usuarioIniciado.foto
+          };
+        } else {
+          res.locals.user = null;
+        }
+        next();
+      })
+      .catch((error) => {
+        console.log("No se pudo obtener el usuario" + error);
+        res.locals.user = null;
+        next();
+      });
+  } else {
+    res.locals.user = null;
+    next();
+  }
+};
+
+ruta.use(obtenerUsuarioMiddleware);
+
 
 // Login-------------------------------------------------------------------------------------------------------------------------
 
@@ -52,6 +83,7 @@ ruta.get("/logout", (req, res) => {
 
 ruta.get("/", async (req, res) => {
   var peliculas = await mostrarPeliculas();
+  console.log(req.session);
   res.render("inicio", { peliculas });
 });
 
@@ -88,7 +120,6 @@ ruta.get("/genero/:genero", async (req, res) => {
     } else {
       var error = "No se encontraron películas para el género especificado.";
       console.log(error);
-      res.send(`<script>alert("${error}"); window.location.href="/";</script>`);
     }
   } catch (err) {
     var error = "Error al buscar películas por género";
@@ -107,7 +138,7 @@ ruta.get("/nuevousuario", (req, res) => {
 ruta.post("/nuevousuario", subirArchivo(), async (req, res) => {
   req.body.foto = req.file.originalname;
   var error = await nuevoUsuario(req.body);
-  res.redirect("/");
+  res.send(`<script>alert("Usuario agregado exitosamente"); window.location.href="/loginUser";</script>`);
 });
 
 // Nueva pelicula----------------------------------------------------------------------------------------------------------------
@@ -155,8 +186,6 @@ ruta.post("/buscarPeli", async (req, res) => {
     res.send(`<script>alert("${error}"); window.location.href="/";</script>`);
   }
 });
-
-
 
 module.exports = ruta;
 
