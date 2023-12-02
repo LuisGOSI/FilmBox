@@ -1,119 +1,158 @@
 <%- include("templates/encabezado") %>
-<%- include("templates/menu") %>
+  <%- include("templates/menu") %>
 
-<h2 class="text-center">Todas las películas</h2>
-<div id="carouselTodasPeliculas" class="carousel slide" style="width: 90%; margin: auto;">
-  <div class="carousel-inner">
-    <% var count = 0; %>
-    <% peliculas.sort(() => Math.random() - 0.5).forEach((pelicula, index) => { %>
-      <% if (count % 3 == 0) { %>
-        <div class="carousel-item <%= count == 0 ? 'active' : '' %>"> 
-          <div class="row">
-      <% } %>
-            <div class="col-md-4">
-              <a href="/pelicula/<%= pelicula.id %>">
-                <img height="400px" src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>" class="d-block w-100" alt="...">
-              </a>
-            </div>
-      <% if (count % 3 == 2) { %>
-          </div>
-        </div>
-      <% } %>
-      <% count++; %>
-    <% }) %>
-    <% if (count % 3 != 0) { %>
+    <div id="particles-js"></div>
+
+    <h2 class="text-center">Todas las películas</h2>
+    <div id="carouselTodasPeliculas" class="carousel slide" style="width: 90%; margin: auto;">
+      <div class="carousel-inner">
+        <% var count=0; %>
+          <% peliculas.sort(()=> Math.random() - 0.5).forEach((pelicula, index) => { %>
+            <% if (count % 3==0) { %>
+              <div class="carousel-item <%= count == 0 ? 'active' : '' %>">
+                <div class="row">
+                  <% } %>
+                    <div class="col-md-4">
+                      <a href="/pelicula/<%= pelicula.id %>">
+                        <img height="400px" src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>" class="d-block w-100"
+                          alt="...">
+                      </a>
+                    </div>
+                    <% if (count % 3==2) { %>
+                </div>
+              </div>
+              <% } %>
+                <% count++; %>
+                  <% }) %>
+                    <% if (count % 3 !=0) { %>
+      </div>
+    </div>
+    <% } %>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselTodasPeliculas" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselTodasPeliculas" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+      </div>
+
+      <div class="separation"></div>
+
+      <h2 class="text-center">Películas de fantasía</h2>
+      <div id="carouselFantasia" class="carousel slide" style="width: 90%; margin: auto;">
+        <div class="carousel-inner">
+          <% var countFantasia=0; %>
+            <% peliculas.filter(pelicula=> pelicula.genero.includes('fantasia')).sort(() => Math.random() -
+              0.5).forEach((pelicula, index) => { %>
+              <% if (countFantasia % 3==0) { %>
+                <div class="carousel-item <%= countFantasia == 0 ? 'active' : '' %>">
+                  <div class="row">
+                    <% } %>
+                      <div class="col-md-4">
+                        <a href="/pelicula/<%= pelicula.id %>">
+                          <img height="400px" src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>"
+                            class="d-block w-100" alt="...">
+                        </a>
+                      </div>
+                      <% if (countFantasia % 3==2) { %>
+                  </div>
+                </div>
+                <% } %>
+                  <% countFantasia++; %>
+                    <% }) %>
+                      <% if (countFantasia % 3 !=0) { %>
         </div>
       </div>
-    <% } %>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselTodasPeliculas"
-    data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Anterior</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselTodasPeliculas"
-    data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Siguiente</span>
-  </button>
-</div>
-
-<div class="separation"></div>
-
-<h2 class="text-center">Películas de fantasía</h2>
-<div id="carouselFantasia" class="carousel slide" style="width: 90%; margin: auto;">
-  <div class="carousel-inner">
-    <% var countFantasia = 0; %>
-    <% peliculas.filter(pelicula => pelicula.genero.includes('fantasia')).sort(() => Math.random() - 0.5).forEach((pelicula, index) => { %>
-      <% if (countFantasia % 3 == 0) { %>
-        <div class="carousel-item <%= countFantasia == 0 ? 'active' : '' %>">
-          <div class="row">
       <% } %>
-            <div class="col-md-4">
-              <a href="/pelicula/<%= pelicula.id %>">
-                <img height="400px" src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>" class="d-block w-100" alt="...">
-              </a>
-            </div>
-      <% if (countFantasia % 3 == 2) { %>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselFantasia" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselFantasia" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
+        </div>
+
+        <div class="separation"></div>
+
+        <h2 class="text-center">Películas de acción</h2>
+        <div id="carouselAccion" class="carousel slide" style="width: 90%; margin: auto;">
+          <div class="carousel-inner">
+            <% var countAccion=0; %>
+              <% peliculas.filter(pelicula=> pelicula.genero.includes('accion')).sort(() => Math.random() -
+                0.5).forEach((pelicula, index) => { %>
+                <% if (countAccion % 3==0) { %>
+                  <div class="carousel-item <%= countAccion == 0 ? 'active' : '' %>">
+                    <div class="row">
+                      <% } %>
+                        <div class="col-md-4">
+                          <a href="/pelicula/<%= pelicula.id %>">
+                            <img height="400px" src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>"
+                              class="d-block w-100" alt="...">
+                          </a>
+                        </div>
+                        <% if (countAccion % 3==2) { %>
+                    </div>
+                  </div>
+                  <% } %>
+                    <% countAccion++; %>
+                      <% }) %>
+                        <% if (countAccion % 3 !=0) { %>
           </div>
         </div>
-      <% } %>
-      <% countFantasia++; %>
-    <% }) %>
-    <% if (countFantasia % 3 != 0) { %>
-        </div>
-      </div>
-    <% } %>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselFantasia"
-    data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Anterior</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselFantasia"
-    data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Siguiente</span>
-  </button>
-</div>
-
-<div class="separation"></div>
-
-<h2 class="text-center">Películas de acción</h2>
-<div id="carouselAccion" class="carousel slide" style="width: 90%; margin: auto;">
-  <div class="carousel-inner">
-    <% var countAccion = 0; %>
-    <% peliculas.filter(pelicula => pelicula.genero.includes('accion')).sort(() => Math.random() - 0.5).forEach((pelicula, index) => { %>
-      <% if (countAccion % 3 == 0) { %>
-        <div class="carousel-item <%= countAccion == 0 ? 'active' : '' %>">
-          <div class="row">
-      <% } %>
-            <div class="col-md-4">
-              <a href="/pelicula/<%= pelicula.id %>">
-                <img height="400px" src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>" class="d-block w-100" alt="...">
-              </a>
-            </div>
-      <% if (countAccion % 3 == 2) { %>
+        <% } %>
           </div>
-        </div>
-      <% } %>
-      <% countAccion++; %>
-    <% }) %>
-    <% if (countAccion % 3 != 0) { %>
-        </div>
-      </div>
-    <% } %>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselAccion"
-    data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Anterior</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselAccion"
-    data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Siguiente</span>
-  </button>
-</div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselAccion" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselAccion" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+          </button>
+          </div>
 
-<%- include("templates/pie") %>
+          <%- include("templates/pie") %>
+
+
+            <script src="../../javapar.js"></script>
+            <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1561436720/particles.js"></script>
+            <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1561436735/app.js"></script>
+
+            <style>
+              body {
+                margin: 0;
+                background-color: rgb(0, 0, 0);
+                overflow: auto;
+                color: white;
+              }
+
+              h2 {
+                font-weight: bold;
+              }
+
+              #particles-js {
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+              }
+
+              .carousel-container {
+                position: relative;
+                z-index: 2;
+              }
+
+              .carousel-inner {
+                z-index: 1;
+              }
+
+              .carousel-item {
+                background-color: transparent;
+              }
+            </style>

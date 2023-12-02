@@ -1,35 +1,104 @@
-<%-  include("templates/encabezado") %>
+<%- include("templates/encabezado") %>
 
-<div class="container mt-5">
-  <form action="/login" method="POST">
-    <div class="card">
+  <div id="particles-js"></div>
+
+  <div class="container mt-5">
+    <form action="/login" method="POST">
+      <div class="card">
+        <div class="card-header">
+          <h1>Iniciar sesion</h1>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label for="usuario">Nombre de usuario:</label>
+            <input class="form-control" type="text" id="usuario" name="usuario">
+          </div>
+          <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input class="form-control" type="password" id="password" name="password">
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="form-control btn btn-primary" type="submit" value="Iniciar sesion">Iniciar sesion</button>
+        </div>
+      </div>
+    </form>
+    <div class="card mt-3">
       <div class="card-header">
-        <h1>Iniciar sesion</h1>
+        <h1>Registrarse</h1>
       </div>
       <div class="card-body">
-        <div class="form-group">
-          <label for="usuario">Nombre de usuario:</label>
-          <input class="form-control" type="text" id="usuario" name="usuario">
-        </div>
-        <div class="form-group">
-          <label for="password">Contraseña:</label>
-          <input class="form-control" type="password" id="password" name="password">
-        </div>
+        <p>¿No tienes una cuenta? Regístrate ahora</p>
+        <a href="/nuevousuario" class="btn btn-primary">Registrarse</a>
       </div>
-      <div class="card-footer">
-        <button class="form-control btn btn-primary" type="submit" value="Iniciar sesion">Iniciar sesion</button>
-      </div>
-    </div>
-  </form>
-  <div class="card mt-3">
-    <div class="card-header">
-      <h1>Registrarse</h1>
-    </div>
-    <div class="card-body">
-      <p>¿No tienes una cuenta? Regístrate ahora</p>
-      <a href="/nuevousuario" class="btn btn-primary">Registrarse</a>
     </div>
   </div>
-</div>
 
-<%- include("templates/pie") %>
+  <%- include("templates/pie") %>
+
+
+    <script src="../../javapar.js"></script>
+    <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1561436720/particles.js"></script>
+    <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1561436735/app.js"></script>
+
+
+    <style>
+      body {
+        margin: 0;
+        background-color: rgb(0, 0, 0);
+        overflow: hidden;
+        color: white;
+      }
+
+      #particles-js {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
+
+      .container {
+        position: relative;
+        z-index: 2;
+        color: white;
+        font-weight: bold;
+      }
+
+      .card {
+        background-color: black;
+        border: 2px solid white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px white;
+      }
+
+      .card-header h1,
+      .card-body label,
+      .card-footer button,
+      .card-footer a {
+        color: white;
+      }
+
+      .card-body input {
+        background-color: #333;
+        color: white;
+      }
+
+      .card-body p {
+        color: white;
+      }
+
+      /* Estilos para los botones */
+      .btn {
+        background-color: transparent;
+        border: 2px solid orange;
+        color: white;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .btn:hover {
+        background-color: orange;
+        color: black;
+        border-color: #ffc107;
+
+      }
+    </style>

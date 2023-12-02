@@ -1,132 +1,232 @@
 <%- include("templates/encabezado") %>
-<%- include("templates/menu") %>
+    <%- include("templates/menu") %>
 
-<div class="container mt-5">
-    <form action="/editarPeli" method="post" enctype="multipart/form-data">
-        <div class="card">
-            <div class="card-header">
-                <h1>Modificar Película</h1>
-            </div>
-            < class="card-body">
-                <input type="hidden" name="id" id="id" value="<%= pelicula.id %>">
-                <input type="hidden" name="fotoVieja" id="fotoVieja" value="<%= pelicula.foto %>">
-                
+        <div id="particles-js"></div>
 
-                <label for="titulo">Título:</label>
-                <input class="form-control mb-3" type="text" value="<%= pelicula.titulo %>" name="titulo" id="titulo" placeholder="Título" autofocus>
+        <div class="container mt-5">
+            <form action="/editarPeli" method="post" enctype="multipart/form-data">
+                <div class="card">
+                    <div class="card-header">
+                        <h1>Modificar Película</h1>
+                    </div>
+                    <class="card-body">
+                        <input type="hidden" name="id" id="id" value="<%= pelicula.id %>">
+                        <input type="hidden" name="fotoVieja" id="fotoVieja" value="<%= pelicula.foto %>">
 
-                <label for="director">Director:</label>
-                <input class="form-control mb-3" type="text" value="<%= pelicula.director %>" name="director" id="director" placeholder="Director">
 
-                <label for="anyo">Año:</label>
-                <input class="form-control mb-3" type="number" value="<%= pelicula.anyo %>" name="anyo" id="anyo" placeholder="Año">
+                        <label for="titulo">Título:</label>
+                        <input class="form-control mb-3" type="text" value="<%= pelicula.titulo %>" name="titulo"
+                            id="titulo" placeholder="Título" autofocus>
 
-                <label for="rating">Rating:</label>
-                <input class="form-control mb-3" type="number" value="<%= pelicula.rating %>" name="rating" id="rating" placeholder="Rating">
+                        <label for="director">Director:</label>
+                        <input class="form-control mb-3" type="text" value="<%= pelicula.director %>" name="director"
+                            id="director" placeholder="Director">
 
-                <label for="sinopsis">Sinopsis:</label>
-                <textarea class="form-control mb-3" name="sinopsis" id="sinopsis" placeholder="Sinopsis"><%= pelicula.sinopsis %></textarea>
+                        <label for="anyo">Año:</label>
+                        <input class="form-control mb-3" type="number" value="<%= pelicula.anyo %>" name="anyo"
+                            id="anyo" placeholder="Año">
 
-                <label for="genero">Géneros:</label>
-                <select class="form-control" name="genero[]" id="genero" required multiple>
-                    <option value="accion" <%= pelicula.genero.includes('accion') ? 'selected' : '' %>>Acción</option>
-                    <option value="aventura" <%= pelicula.genero.includes('aventura') ? 'selected' : '' %>>Aventura</option>
-                    <option value="ciencia-ficcion" <%= pelicula.genero.includes('ciencia-ficcion') ? 'selected' : '' %>>Ciencia-ficción</option>
-                    <option value="comedia" <%= pelicula.genero.includes('comedia') ? 'selected' : '' %>>Comedia</option>
-                    <option value="drama" <%= pelicula.genero.includes('drama') ? 'selected' : '' %>>Drama</option>
-                    <option value="fantasia" <%= pelicula.genero.includes('fantasia') ? 'selected' : '' %>>Fantasía</option>
-                    <option value="terror" <%= pelicula.genero.includes('terror') ? 'selected' : '' %>>Terror</option>
-                </select>
-                <div class="selected-genres mt-3">
-                    <% pelicula.genero.forEach(genre => { %>
-                        <span class="badge badge-primary genre-badge mr-2">
-                            <%= genre %>
-                            <button type="button" class="btn btn-sm btn-danger remove-genre">X</button>
-                        </span>
-                    <% }); %>
+                        <label for="rating">Rating:</label>
+                        <input class="form-control mb-3" type="number" value="<%= pelicula.rating %>" name="rating"
+                            id="rating" placeholder="Rating">
+
+                        <label for="sinopsis">Sinopsis:</label>
+                        <textarea class="form-control mb-3" name="sinopsis" id="sinopsis"
+                            placeholder="Sinopsis"><%= pelicula.sinopsis %></textarea>
+
+                        <label for="genero">Géneros:</label>
+                        <select class="form-control" name="genero[]" id="genero" required multiple>
+                            <option value="accion" <%=pelicula.genero.includes('accion') ? 'selected' : '' %>>Acción
+                            </option>
+                            <option value="aventura" <%=pelicula.genero.includes('aventura') ? 'selected' : '' %>
+                                >Aventura</option>
+                            <option value="ciencia-ficcion" <%=pelicula.genero.includes('ciencia-ficcion') ? 'selected'
+                                : '' %>>Ciencia-ficción</option>
+                            <option value="comedia" <%=pelicula.genero.includes('comedia') ? 'selected' : '' %>>Comedia
+                            </option>
+                            <option value="drama" <%=pelicula.genero.includes('drama') ? 'selected' : '' %>>Drama
+                            </option>
+                            <option value="fantasia" <%=pelicula.genero.includes('fantasia') ? 'selected' : '' %>
+                                >Fantasía</option>
+                            <option value="terror" <%=pelicula.genero.includes('terror') ? 'selected' : '' %>>Terror
+                            </option>
+                        </select>
+                        <div class="selected-genres mt-3">
+                            <% pelicula.genero.forEach(genre=> { %>
+                                <span class="badge badge-primary genre-badge mr-2">
+                                    <%= genre %>
+                                        <button type="button" class="btn btn-sm btn-danger remove-genre">X</button>
+                                </span>
+                                <% }); %>
+                        </div>
+
+                        <label for="plataforma">Plataforma/s:</label>
+                        <select class="form-control" name="plataforma[]" id="plataforma" required multiple>
+                            <option value="Netflix" <%=pelicula.plataforma.includes('Netflix') ? 'selected' : '' %>
+                                >Netflix</option>
+                            <option value="Amazon" <%=pelicula.plataforma.includes('Amazon') ? 'selected' : '' %>>Amazon
+                                Prime Video</option>
+                            <option value="Disney" <%=pelicula.plataforma.includes('Disney') ? 'selected' : '' %>
+                                >Disney+</option>
+                            <option value="HBO MAX" <%=pelicula.plataforma.includes('HBO MAX') ? 'selected' : '' %>>HBO
+                                MAX</option>
+                            <option value="Movistar+" <%=pelicula.plataforma.includes('Movistar+') ? 'selected' : '' %>
+                                >Movistar+</option>
+                            <option value="Apple TV+" <%=pelicula.plataforma.includes('Apple TV+') ? 'selected' : '' %>
+                                >Apple TV+</option>
+                            <option value="Claro Video" <%=pelicula.plataforma.includes('Claro Video') ? 'selected' : ''
+                                %>>Claro Video</option>
+                            <option value="Otra" <%=pelicula.plataforma.includes('Otra') ? 'selected' : '' %>>Otra...
+                            </option>
+                        </select>
+                        <div class="selected-platforms mt-3">
+                            <% pelicula.plataforma.forEach(platform=> { %>
+                                <span class="badge badge-primary platform-badge mr-2">
+                                    <%= platform %>
+                                        <button type="button" class="btn btn-sm btn-danger remove-platform">X</button>
+                                </span>
+                                <% }); %>
+                        </div>
+
+                        <!-- ... Otros campos ... -->
+
+                        <label for="trailer">Tráiler (URL):</label>
+                        <input class="form-control mb-3" type="text" value="<%= pelicula.trailer %>" name="trailer"
+                            id="trailer" placeholder="Tráiler" required>
+
+                        <label for="foto">Nueva foto (Opcional):</label>
+                        <input class="form-control mb-3" type="file" value="<%= pelicula.foto %>" name="foto" id="foto"
+                            placeholder="Foto">
+
+                        <div class="text-center">
+                            <img src="/images/<%=pelicula.foto %>" alt="Foto de película" class="img-fluid"
+                                height="150px" width="150px">
+                        </div>
                 </div>
-
-                <label for="plataforma">Plataforma/s:</label>
-                <select class="form-control" name="plataforma[]" id="plataforma" required multiple>
-                    <option value="Netflix" <%= pelicula.plataforma.includes('Netflix') ? 'selected' : '' %>>Netflix</option>
-                    <option value="Amazon" <%= pelicula.plataforma.includes('Amazon') ? 'selected' : '' %>>Amazon Prime Video</option>
-                    <option value="Disney" <%= pelicula.plataforma.includes('Disney') ? 'selected' : '' %>>Disney+</option>
-                    <option value="HBO MAX" <%= pelicula.plataforma.includes('HBO MAX') ? 'selected' : '' %>>HBO MAX</option>
-                    <option value="Movistar+" <%= pelicula.plataforma.includes('Movistar+') ? 'selected' : '' %>>Movistar+</option>
-                    <option value="Apple TV+" <%= pelicula.plataforma.includes('Apple TV+') ? 'selected' : '' %>>Apple TV+</option>
-                    <option value="Claro Video" <%= pelicula.plataforma.includes('Claro Video') ? 'selected' : '' %>>Claro Video</option>
-                    <option value="Otra" <%= pelicula.plataforma.includes('Otra') ? 'selected' : '' %>>Otra...</option>
-                </select>
-                <div class="selected-platforms mt-3">
-                    <% pelicula.plataforma.forEach(platform => { %>
-                        <span class="badge badge-primary platform-badge mr-2">
-                            <%= platform %>
-                            <button type="button" class="btn btn-sm btn-danger remove-platform">X</button>
-                        </span>
-                    <% }); %>
+                <div class="card-footer">
+                    <button class="form-control btn btn-primary" type="submit">Modificar Película</button>
                 </div>
-
-                <!-- ... Otros campos ... -->
-
-                <label for="trailer">Tráiler (URL):</label>
-                <input class="form-control mb-3" type="text" value="<%= pelicula.trailer %>" name="trailer" id="trailer" placeholder="Tráiler" required>
-
-                <label for="foto">Nueva foto (Opcional):</label>
-                <input class="form-control mb-3" type="file" value="<%= pelicula.foto %>" name="foto" id="foto" placeholder="Foto">
-
-                <div class="text-center">
-                    <img src="/images/<%=pelicula.foto %>" alt="Foto de película" class="img-fluid" height="150px" width="150px">
-                </div>
-            </div>
-            <div class="card-footer">
-                <button class="form-control btn btn-primary" type="submit">Modificar Película</button>
-            </div>
         </div>
-    </form>
-</div>
+        </form>
+        </div>
 
-<script>
-    document.getElementById('genero').addEventListener('change', function () {
-        var selectedGenres = Array.from(this.selectedOptions).map(option => option.value);
-        document.querySelector('.selected-genres').innerHTML = '';
-        selectedGenres.forEach(genre => {
-            var genreModule = document.createElement('span');
-            genreModule.className = 'badge badge-primary genre-badge mr-2';
-            genreModule.textContent = genre;
-            var removeButton = document.createElement('button');
-            removeButton.className = 'btn btn-sm btn-danger remove-genre';
-            removeButton.textContent = 'X';
-            removeButton.addEventListener('click', function () {
-                selectedGenres = selectedGenres.filter(selectedGenre => selectedGenre !== genre);
-                document.querySelector('.selected-genres').removeChild(genreModule);
-                var genreOption = document.querySelector('#genero option[value="' + genre + '"]');
-                genreOption.selected = false;
+        <script>
+            document.getElementById('genero').addEventListener('change', function () {
+                var selectedGenres = Array.from(this.selectedOptions).map(option => option.value);
+                document.querySelector('.selected-genres').innerHTML = '';
+                selectedGenres.forEach(genre => {
+                    var genreModule = document.createElement('span');
+                    genreModule.className = 'badge badge-primary genre-badge mr-2';
+                    genreModule.textContent = genre;
+                    var removeButton = document.createElement('button');
+                    removeButton.className = 'btn btn-sm btn-danger remove-genre';
+                    removeButton.textContent = 'X';
+                    removeButton.addEventListener('click', function () {
+                        selectedGenres = selectedGenres.filter(selectedGenre => selectedGenre !== genre);
+                        document.querySelector('.selected-genres').removeChild(genreModule);
+                        var genreOption = document.querySelector('#genero option[value="' + genre + '"]');
+                        genreOption.selected = false;
+                    });
+                    genreModule.appendChild(removeButton);
+                    document.querySelector('.selected-genres').appendChild(genreModule);
+                });
             });
-            genreModule.appendChild(removeButton);
-            document.querySelector('.selected-genres').appendChild(genreModule);
-        });
-    });
 
-    document.getElementById('plataforma').addEventListener('change', function () {
-        var selectedPlatforms = Array.from(this.selectedOptions).map(option => option.value);
-        document.querySelector('.selected-platforms').innerHTML = '';
-        selectedPlatforms.forEach(platform => {
-            var platformModule = document.createElement('span');
-            platformModule.className = 'badge badge-primary platform-badge mr-2';
-            platformModule.textContent = platform;
-            var removeButton = document.createElement('button');
-            removeButton.className = 'btn btn-sm btn-danger remove-platform';
-            removeButton.textContent = 'X';
-            removeButton.addEventListener('click', function () {
-                selectedPlatforms = selectedPlatforms.filter(selectedPlatform => selectedPlatform !== platform);
-                document.querySelector('.selected-platforms').removeChild(platformModule);
-                var platformOption = document.querySelector('#plataforma option[value="' + platform + '"]');
-                platformOption.selected = false;
+            document.getElementById('plataforma').addEventListener('change', function () {
+                var selectedPlatforms = Array.from(this.selectedOptions).map(option => option.value);
+                document.querySelector('.selected-platforms').innerHTML = '';
+                selectedPlatforms.forEach(platform => {
+                    var platformModule = document.createElement('span');
+                    platformModule.className = 'badge badge-primary platform-badge mr-2';
+                    platformModule.textContent = platform;
+                    var removeButton = document.createElement('button');
+                    removeButton.className = 'btn btn-sm btn-danger remove-platform';
+                    removeButton.textContent = 'X';
+                    removeButton.addEventListener('click', function () {
+                        selectedPlatforms = selectedPlatforms.filter(selectedPlatform => selectedPlatform !== platform);
+                        document.querySelector('.selected-platforms').removeChild(platformModule);
+                        var platformOption = document.querySelector('#plataforma option[value="' + platform + '"]');
+                        platformOption.selected = false;
+                    });
+                    platformModule.appendChild(removeButton);
+                    document.querySelector('.selected-platforms').appendChild(platformModule);
+                });
             });
-            platformModule.appendChild(removeButton);
-            document.querySelector('.selected-platforms').appendChild(platformModule);
-        });
-    });
-</script>
+        </script>
 
-<%- include("templates/pie") %>
+        <%- include("templates/pie") %>
+
+
+            <script src="../../javapar.js"></script>
+            <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1561436720/particles.js"></script>
+            <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1561436735/app.js"></script>
+
+            <style>
+                body {
+                    width: 100%;
+                    height: 100%;
+                    background: #000000;
+                    margin: 0;
+                    overflow: auto;
+                }
+
+                #particles-js {
+                    position: fixed;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 0;
+                }
+
+                .container {
+                    position: relative;
+                    z-index: 2;
+                    color: white;
+                    font-weight: bold;
+                }
+
+                .card {
+                    background-color: black;
+                    border: 2px solid white;
+                    border-radius: 10px;
+                    box-shadow: 0 0 10px white;
+                }
+
+                .card-header h1,
+                .card-body h1,
+                .card-body h5,
+                .card-body p,
+                .card-footer button,
+                .card-footer a,
+                .agregar-reseña h3,
+                .reseñas h3,
+                label {
+                    color: white;
+                }
+
+                .card-body input {
+                    background-color: #ffffff;
+                    color: white;
+                }
+
+                .card-body p {
+                    color: white;
+                }
+
+                .agregar-reseña button,
+                .card-footer button,
+                .btn-primary {
+                    background-color: transparent;
+                    border: 2px solid orange;
+                    color: white;
+                    transition: background-color 0.3s, color 0.3s;
+                    margin-top: 10px;
+                }
+
+                .agregar-reseña button:hover,
+                .card-footer button:hover,
+                .btn-primary:hover {
+                    background-color: orange;
+                    color: white;
+                    border-color: #ffc107;
+                }
+            </style>

@@ -1,31 +1,35 @@
 <%- include("templates/encabezado") %>
-<%- include("templates/menu") %>
+    <%- include("templates/menu") %>
 
-        <h2 class="text-center">Todas las películas de <%= genero %></h2>
+        <div id="particles-js"></div>
+
+        <h2 class="text-center">Todas las películas de <%= genero %>
+        </h2>
         <div id="carouselTodasPeliculas" class="carousel slide" style="width: 90%; margin: auto">
             <div class="carousel-inner">
-                <% let count = 0; %>
-                <% peliculas.filter(pelicula=> pelicula.genero.includes(genero)).forEach((pelicula, index) => { %>
-                    <% if (count % 3 == 0) { %>
-                        <div class="carousel-item <%= count == 0 ? 'active' : '' %>">
-                            <div class="row">
-                    <% } %>
-                        <div class="col-md-4">
-                            <a href="/pelicula/<%= pelicula.id %>">
-                                <img height="400px" src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>"
-                                    class="d-block w-100" alt="..." />
-                            </a>
-                        </div>
-                    <% if (count % 3 == 2) { %>
+                <% let count=0; %>
+                    <% peliculas.filter(pelicula=> pelicula.genero.includes(genero)).forEach((pelicula, index) => { %>
+                        <% if (count % 3==0) { %>
+                            <div class="carousel-item <%= count == 0 ? 'active' : '' %>">
+                                <div class="row">
+                                    <% } %>
+                                        <div class="col-md-4">
+                                            <a href="/pelicula/<%= pelicula.id %>">
+                                                <img height="400px"
+                                                    src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>"
+                                                    class="d-block w-100" alt="..." />
+                                            </a>
+                                        </div>
+                                        <% if (count % 3==2) { %>
+                                </div>
                             </div>
-                        </div>
-                    <% } %>
-                    <% count++; %>
-                <% }) %>
-                <% if (count % 3 != 0) { %>
-                        </div>
-                    </div>
-                <% } %>
+                            <% } %>
+                                <% count++; %>
+                                    <% }) %>
+                                        <% if (count % 3 !=0) { %>
+            </div>
+        </div>
+        <% } %>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselTodasPeliculas"
                 data-bs-slide="prev">
@@ -37,125 +41,172 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Siguiente</span>
             </button>
-        </div>
+            </div>
 
-        <div class="separation"></div>
+            <div class="separation"></div>
 
-        <h2 class="text-center">Películas con mejor rating</h2>
-        <div id="carouselAccion" class="carousel slide" style="width: 90%; margin: auto">
-            <div class="carousel-inner">
-                <% let countAccion = 0; %>
-                <% peliculas.filter(pelicula=>
-                    pelicula.genero.includes(genero) && pelicula.rating > 2.5).forEach((pelicula, index) => { %>
-                    <% if (countAccion % 3 == 0) { %>
-                        <div class="carousel-item <%= countAccion == 0 ? 'active' : '' %>">
-                            <div class="row">
-                    <% } %>
-                        <div class="col-md-4">
-                            <a href="/pelicula/<%= pelicula.id %>">
-                                <img height="400px" src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>"
-                                    class="d-block w-100" alt="..." />
-                            </a>
-                        </div>
-                    <% if (countAccion % 3 == 2) { %>
-                            </div>
-                        </div>
-                    <% } %>
-                    <% countAccion++; %>
-                <% }) %>
-                <% if (countAccion % 3 != 0) { %>
+            <h2 class="text-center">Películas con mejor rating</h2>
+            <div id="carouselAccion" class="carousel slide" style="width: 90%; margin: auto">
+                <div class="carousel-inner">
+                    <% let countAccion=0; %>
+                        <% peliculas.filter(pelicula=>
+                            pelicula.genero.includes(genero) && pelicula.rating > 2.5).forEach((pelicula, index) => { %>
+                            <% if (countAccion % 3==0) { %>
+                                <div class="carousel-item <%= countAccion == 0 ? 'active' : '' %>">
+                                    <div class="row">
+                                        <% } %>
+                                            <div class="col-md-4">
+                                                <a href="/pelicula/<%= pelicula.id %>">
+                                                    <img height="400px"
+                                                        src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>"
+                                                        class="d-block w-100" alt="..." />
+                                                </a>
+                                            </div>
+                                            <% if (countAccion % 3==2) { %>
+                                    </div>
+                                </div>
+                                <% } %>
+                                    <% countAccion++; %>
+                                        <% }) %>
+                                            <% if (countAccion % 3 !=0) { %>
+                </div>
+            </div>
+            <% } %>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselAccion"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselAccion"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+                </div>
+
+                <h2 class="text-center">Películas disponibles en Netflix</h2>
+                <div id="carouselNetflix" class="carousel slide" style="width: 90%; margin: auto">
+                    <div class="carousel-inner">
+                        <% let countNetflix=0; %>
+                            <% peliculas.filter(pelicula=>
+                                pelicula.plataforma.includes('Netflix') && pelicula.rating > 2.5).forEach((pelicula,
+                                index) => { %>
+                                <% if (countNetflix % 3==0) { %>
+                                    <div class="carousel-item <%= countNetflix == 0 ? 'active' : '' %>">
+                                        <div class="row">
+                                            <% } %>
+                                                <div class="col-md-4">
+                                                    <a href="/pelicula/<%= pelicula.id %>">
+                                                        <img height="400px"
+                                                            src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>"
+                                                            class="d-block w-100" alt="..." />
+                                                    </a>
+                                                </div>
+                                                <% if (countNetflix % 3==2) { %>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                        <% countNetflix++; %>
+                                            <% }) %>
+                                                <% if (countNetflix % 3 !=0) { %>
+                    </div>
+                </div>
+                <% } %>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselNetflix"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselNetflix"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Siguiente</span>
+                    </button>
+                    </div>
+
+                    <h2 class="text-center">Películas disponibles en HBO</h2>
+                    <div id="carouselHBO" class="carousel slide" style="width: 90%; margin: auto">
+                        <div class="carousel-inner">
+                            <% let countHBO=0; %>
+                                <% peliculas.filter(pelicula=>
+                                    pelicula.plataforma.includes('HBO MAX') && pelicula.rating > 2.5).forEach((pelicula,
+                                    index) => { %>
+                                    <% if (countHBO % 3==0) { %>
+                                        <div class="carousel-item <%= countHBO == 0 ? 'active' : '' %>">
+                                            <div class="row">
+                                                <% } %>
+                                                    <div class="col-md-4">
+                                                        <a href="/pelicula/<%= pelicula.id %>">
+                                                            <img height="400px"
+                                                                src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>"
+                                                                class="d-block w-100" alt="..." />
+                                                        </a>
+                                                    </div>
+                                                    <% if (countHBO % 3==2) { %>
+                                            </div>
+                                        </div>
+                                        <% } %>
+                                            <% countHBO++; %>
+                                                <% }) %>
+                                                    <% if (countHBO % 3 !=0) { %>
                         </div>
                     </div>
-                <% } %>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselAccion"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Anterior</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselAccion"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Siguiente</span>
-            </button>
-        </div>
+                    <% } %>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselHBO"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Anterior</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselHBO"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Siguiente</span>
+                        </button>
+                        </div>
 
-        <h2 class="text-center">Películas disponibles en Netflix</h2>
-        <div id="carouselNetflix" class="carousel slide" style="width: 90%; margin: auto">
-            <div class="carousel-inner">
-                <% let countNetflix = 0; %>
-                <% peliculas.filter(pelicula=>
-                    pelicula.plataforma.includes('Netflix') && pelicula.rating > 2.5).forEach((pelicula, index) => { %>
-                    <% if (countNetflix % 3 == 0) { %>
-                        <div class="carousel-item <%= countNetflix == 0 ? 'active' : '' %>">
-                            <div class="row">
-                    <% } %>
-                        <div class="col-md-4">
-                            <a href="/pelicula/<%= pelicula.id %>">
-                                <img height="400px" src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>"
-                                    class="d-block w-100" alt="..." />
-                            </a>
-                        </div>
-                    <% if (countNetflix % 3 == 2) { %>
-                            </div>
-                        </div>
-                    <% } %>
-                    <% countNetflix++; %>
-                <% }) %>
-                <% if (countNetflix % 3 != 0) { %>
-                        </div>
-                    </div>
-                <% } %>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselNetflix"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Anterior</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselNetflix"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Siguiente</span>
-            </button>
-        </div>
+                        <%- include("templates/pie") %>
 
-        <h2 class="text-center">Películas disponibles en HBO</h2>
-        <div id="carouselHBO" class="carousel slide" style="width: 90%; margin: auto">
-            <div class="carousel-inner">
-                <% let countHBO = 0; %>
-                <% peliculas.filter(pelicula=>
-                    pelicula.plataforma.includes('HBO MAX') && pelicula.rating > 2.5).forEach((pelicula, index) => { %>
-                    <% if (countHBO % 3 == 0) { %>
-                        <div class="carousel-item <%= countHBO == 0 ? 'active' : '' %>">
-                            <div class="row">
-                    <% } %>
-                        <div class="col-md-4">
-                            <a href="/pelicula/<%= pelicula.id %>">
-                                <img height="400px" src="/images/<%= pelicula.foto %>?v=<%= Date.now() %>"
-                                    class="d-block w-100" alt="..." />
-                            </a>
-                        </div>
-                    <% if (countHBO % 3 == 2) { %>
-                            </div>
-                        </div>
-                    <% } %>
-                    <% countHBO++; %>
-                <% }) %>
-                <% if (countHBO % 3 != 0) { %>
-                        </div>
-                    </div>
-                <% } %>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselHBO"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Anterior</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselHBO"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Siguiente</span>
-            </button>
-        </div>
 
-        <%- include("templates/pie") %>
+                            <script src="../../javapar.js"></script>
+                            <link rel="stylesheet" href="../web/styles/generalStyles.css" />
+                            <script
+                                src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1561436720/particles.js"></script>
+                            <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1561436735/app.js"></script>
+
+                            <style>
+                                body {
+                                    margin: 0;
+                                    background-color: #000000;
+                                    /* Negro */
+                                    overflow: auto;
+                                    color: #ffffff;
+                                    /* Blanco */
+                                }
+
+                                h2 {
+                                    font-weight: bold;
+                                }
+
+                                #particles-js {
+                                    position: fixed;
+                                    width: 100%;
+                                    height: 100%;
+                                    z-index: 1;
+                                }
+
+                                .carousel-container {
+                                    position: relative;
+                                    z-index: 2;
+                                }
+
+                                .carousel-inner {
+                                    z-index: 1;
+                                }
+
+                                .carousel-item {
+                                    background-color: transparent;
+                                }
+                            </style>
