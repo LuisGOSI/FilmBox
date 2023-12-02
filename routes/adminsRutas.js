@@ -2,7 +2,7 @@ var rutaAd = require("express").Router();
 var fs = require("fs");
 var { adminAutorizado, autorizado} = require("../middlewares/funcionesSecurity");
 var {  mostrarUsuarios, buscarPorID, borrarUsuario, modificarUsuario} = require("../database/usuariosbd");
-var { mostrarPeliculas } = require("../database/peliculasbd");
+var { mostrarPeliculas, borrarPelicula, buscarPelicula, modificarPelicula } = require("../database/peliculasbd");
 var subirArchivo = require("../middlewares/subirArchivo");
 
 // Pagina de inicio de admin-----------------------------------------------------------------------------------------------------
@@ -30,7 +30,6 @@ rutaAd.post("/editar", subirArchivo(), async (req, res) => {
             req.body.foto = req.body.fotoVieja;
         }
         
-        // Convertir el valor del campo "admin" a booleano
         req.body.admin = req.body.admin === "true";
         
         await modificarUsuario(req.body);
@@ -39,9 +38,6 @@ rutaAd.post("/editar", subirArchivo(), async (req, res) => {
         console.error("Error al editar usuario:", error);
     }
 });
-
-
-
 
 rutaAd.get("/borrar/:id", async (req, res) => {
     var usuario = await buscarPorID(req.params.id)
@@ -53,7 +49,54 @@ rutaAd.get("/borrar/:id", async (req, res) => {
     res.redirect("/adminInicio");
 });
 
+
+rutaAd.get("/borrarPeli/:id", async (req, res) => {
+    try {
+        const pelicula = await buscarPelicula(req.params.id);
+        if (pelicula) {
+            const foto = pelicula.foto;
+            fs.unlinkSync(`web/images/${foto}`);
+            await borrarPelicula(req.params.id);
+        }
+        res.redirect("/adminInicio");
+    } catch (error) {
+        console.error("Error al borrar película:", error);
+        res.status(500).send("Error interno del servidor");
+    }
+});
+
+rutaAd.get("/editarPeli/:id", async (req, res) => {
+    try {
+        const pelicula = await buscarPelicula(req.params.id);
+        res.render("modificarPelicula", { pelicula });
+    } catch (error) {
+        console.error("Error al obtener datos de la película:", error);
+        res.status(500).send("Error interno del servidor");
+    }
+});
+
+rutaAd.post("/editarPeli", subirArchivo(), async (req, res) => {
+    try {
+        const peliculaAct = await buscarPelicula(req.body.id);
+        if (req.file) {
+            req.body.foto = req.file.originalname;
+            if (peliculaAct.foto) {
+                const rutaFotoAnterior = `web/images/${peliculaAct.foto}`;
+                fs.unlinkSync(rutaFotoAnterior);
+            }
+        } else {
+            req.body.foto = req.body.fotoVieja;
+        }
+        await modificarPelicula(req.body);
+        res.redirect("/adminInicio");
+    } catch (error) {
+        console.error("Error al editar película:", error);
+        res.status(500).send("Error interno del servidor");
+    }
+});
+
 rutaAd.get("/", (req, res) => {
     res.render("usuarios/login");
 });
+
 module.exports = rutaAd;

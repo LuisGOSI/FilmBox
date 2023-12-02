@@ -42,7 +42,6 @@ async function buscarPeliculaGenero(genero) {
         movies.push(movie.obtenerDatos);
       }
     });
-    // console.log(movies);
     return movies;
   } catch (err) {
     console.error("Error al buscar películas por género: " + err);
@@ -64,9 +63,45 @@ async function nuevaPelicula(datos) {
     return error;
   }
 
+  
+async function modificarPelicula(datos) {
+  var error = 1;
+  var respuestaBuscar = await buscarPelicula(datos.id);
+  if (respuestaBuscar != "") {
+      var pelicula = new Pelicula(datos.id, datos);
+      if (pelicula.bandera == 0) {
+          try {
+              await conexion.doc(pelicula.id).set(pelicula.obtenerDatos);
+              console.log("Película modificada");
+              error = 0;
+          } catch (err) {
+              console.log("Error al modificar película: " + err);
+          }
+      }
+  }
+  return error;
+}
+
+async function borrarPelicula(id) {
+  var error = 1;
+  var pelicula = await buscarPelicula(id);
+  if (pelicula != "") {
+      try {
+          await conexion.doc(id).delete();
+          console.log("Película eliminada de la base de datos");
+          error = 0;
+      } catch (err) {
+          console.log("Error al eliminar la película: " + err);
+      }
+  }
+  return error;
+}
+
 module.exports = {
     mostrarPeliculas,
     buscarPelicula,
     nuevaPelicula,
     buscarPeliculaGenero,
+    modificarPelicula,
+    borrarPelicula
 }
